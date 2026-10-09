@@ -1,0 +1,44 @@
+[
+    {
+        "name": "comic book",
+        "amount": 300.0,
+        "category": "entertainment",
+        "date": "2026-10-07"
+    },
+    {
+        "name": "coffee",
+        "amount": 50.0,
+        "category": "food",
+        "date": "2026-10-07"
+    },
+    {
+        "name": "pasta",
+        "amount": 210.0,
+        "category": "food",
+        "date": "2026-10-07"
+    },
+    {
+        "name": "bus ticket",
+        "amount": 400.0,
+        "category": "travel",
+        "date": "2026-10-08"
+    },
+    {
+        "name": "mobile recharge",
+        "amount": 350.0,
+        "category": "bills",
+        "date": "2026-10-08"
+    },
+    {
+        "name": "notebook",
+        "amount": 120.0,
+        "category": "education",
+        "date": "2026-10-08"
+    },
+    {
+        "name": "paper",
+        "amount": 20.0,
+        "category": "education",
+        "date": "2026-10-07"
+    }
+]
