@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Analytics</title>
+    
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f0ff;
+        }
+
+        .container {
+            width: 90%;
+            margin: 40px auto;
+        }
+
+        h1 {
+            color: #4b2aad;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            width: 210px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .card h3 {
+            color: #6a42d8;
+        }
+
+        .card p {
+            font-size: 25px;
+            font-weight: bold;
+            color: #4b2aad;
+        }
+
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 35px auto;
+            padding: 10px 18px;
+            background-color: #7c4dff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .back-button:hover {
+            background-color: #6840d8;
+        }
+                h2 {
+            color: #4b2aad;
+            margin-top: 40px;
+        }
+
+        table {
+            width: 100%;
+            background-color: white;
+            border-collapse: collapse;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        th {
+            background-color: #7c4dff;
+            color: white;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+        }
+        .chart-box {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .chart-box img {
+            width: 80%;
+            max-width: 800px;
+        }
+        .dark-mode {
+           background-color: #222;
+        }
+
+        .dark-mode h1,
+        .dark-mode h2 {
+          color: white;
+        }
+
+        .dark-mode .card {
+          background-color: #333;
+          color: white;
+        }
+
+        .dark-mode .card h3 {
+            color: #a7f950;
+        }
+
+       .dark-mode .card p {
+            color: #a7f950;
+       }
+
+        .dark-mode table {
+           background-color: #333;
+           color: white;
+        }
+
+        .dark-mode td {
+           border-bottom-color: #555;
+        }
+
+        .dark-mode .chart-box {
+           background-color: #333;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>📊 Expense Analytics</h1>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Total Expense</h3>
+                <p><span class="currency-symbol">₹</span>{{ "%.2f"|format(total_expense) }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Highest Expense</h3>
+                <p><span class="currency-symbol">₹</span>{{ "%.2f"|format(highest_expense) }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Lowest Expense</h3>
+                <p><span class="currency-symbol">₹</span>{{ "%.2f"|format(lowest_expense) }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Average Expense</h3>
+                <p><span class="currency-symbol">₹</span>{{ "%.2f"|format(average_expense) }}</p>
+            </div>
+
+               </div>
+
+        <h2>Category-wise Expense</h2>
+
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Total Amount</th>
+            </tr>
+
+            {% for category, amount in category_expense.items() %}
+            <tr>
+                <td>{{ category }}</td>
+                <td><span class="currency-symbol">₹</span>{{ "%.2f"|format(amount) }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% if category_expense %}
+        <h2>Expense Graph</h2>
+
+        <div class="chart-box">
+            <img src="{{ url_for('static', filename='expense_chart.png') }}"  
+             alt="Category-wise Expense Chart">
+        </div>
+       {% endif %}
+
+        <a href="/" class="back-button">← Back to Home</a>
+    </div>
+    <script>
+    let savedCurrency = localStorage.getItem("currency");
+
+    if (savedCurrency) {
+        let currencySymbols = document.querySelectorAll(".currency-symbol");
+
+        currencySymbols.forEach(function(symbol) {
+            symbol.textContent = savedCurrency;
+        });
+    }
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+    </script>
+
+</body>
+</html>

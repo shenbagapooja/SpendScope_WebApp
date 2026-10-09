@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Expenses</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f0ff;
+        }
+
+        .container {
+            width: 90%;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: #4b2aad;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th {
+            background-color: #7c4dff;
+            color: white;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background-color: #f8f6ff;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 18px;
+            background-color: #7c4dff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .back-button:hover {
+            background-color: #6840d8;
+        }
+        .dark-mode {
+           background-color: #222;
+        }
+
+        .dark-mode .container {
+           background-color: #333;
+           color: white;
+        }
+
+        .dark-mode h1 {
+          color: white;
+        }
+
+        .dark-mode td {
+          border-bottom-color: #555;
+        }
+
+       .dark-mode tr:hover {
+          background-color: #444;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>📋 All Expenses</h1>
+
+        <table>
+
+    <tr>
+        <th>Expense Name</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+
+    {% for expense in expenses %}
+
+    <tr>
+        <td>{{ expense.name }}</td>
+        <td><span class="currency-symbol">₹</span>{{ expense.amount }}</td>
+        <td>{{ expense.category }}</td>
+        <td>
+            {{ expense.date[8:10] }}-{{ expense.date[5:7] }}-{{ expense.date[0:4] }}
+        </td>
+        <td>
+            <a href="/delete-expense/{{ loop.index0 }}">Delete</a>
+        </td>
+    </tr>
+
+    {% endfor %}
+
+        </table>
+
+        
+
+        <a href="/" class="back-button">← Back to Home</a>
+
+    </div>
+    <script>
+    let savedCurrency = localStorage.getItem("currency");
+
+    if (savedCurrency) {
+        let currencySymbols = document.querySelectorAll(".currency-symbol");
+
+        currencySymbols.forEach(function(symbol) {
+            symbol.textContent = savedCurrency;
+        });
+    }
+</script>
+<script>
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+</script>
+
+</body>
+</html>

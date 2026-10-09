@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Expense</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f0ff;
+        }
+
+        .container {
+            width: 500px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: #4b2aad;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: #7c4dff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #6840d8;
+        }
+        .dark-mode {
+            background-color: #222;
+        }
+
+        .dark-mode .container {
+            background-color: #333;
+        }
+
+        .dark-mode h1 {
+            color: white;
+        }
+
+        .dark-mode label {
+            color: white;
+        }
+
+       .dark-mode input {
+           background-color: #444;
+           color: white;
+           border-color: #666;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        {% if error %}
+          <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <form method="POST" action="/add-expense">
+
+        <h1>➕ Add Expense</h1>
+
+        <label>Expense Name</label>
+        <input type="text" name="name" placeholder="Enter expense name" required>
+
+        <label>Amount</label>
+        <input type="number" name="amount" placeholder="Enter amount" step="0.01" min="0.01" required>
+
+        <label>Category</label>
+        <input type="text" name="category" placeholder="Enter category" required>
+
+        <label>Date</label>
+        <input type="date" name="date" required>
+        
+        <button type="submit">Add Expense</button>
+        </form>
+    </div>
+    <script>
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+</script>
+
+</body>
+</html>

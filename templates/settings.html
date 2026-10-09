@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f0ff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            color: #4b2aad;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .setting-box {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .setting-box h3 {
+            color: #4b2aad;
+            margin-top: 0;
+        }
+
+        .setting-box p {
+            color: #555;
+        }
+
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 30px auto;
+            padding: 10px 18px;
+            background-color: #7c4dff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .back-button:hover {
+            background-color: #6840d8;
+        }
+        .dark-mode {
+            background-color: #222;
+        }
+
+        .dark-mode .container h1 {
+            color: white;
+        }
+
+        .dark-mode .setting-box {
+           background-color: #333;
+           color: white;
+        }
+
+       .dark-mode .setting-box h3 {
+         color: #a7f950;
+       }
+
+      .dark-mode .setting-box p {
+         color: #ddd;
+       }
+       button,
+       select {
+         padding: 10px 15px;
+         border: none;
+         border-radius: 8px;
+         font-size: 15px;
+         cursor: pointer;
+        }
+
+       button {
+        background-color: #7c4dff;
+        color: white;
+       }
+
+       button:hover {
+         background-color: #6840d8;
+       }
+
+       select {
+         margin-left: 10px;
+         border: 1px solid #ddd;
+         background-color: white;
+       }
+       input {
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 15px;
+        margin-right: 10px;
+      }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>⚙️ Settings</h1>
+
+        <div class="setting-box">
+           <h3>🌙 Appearance</h3>
+           <p>Choose how your Expense Tracker looks.</p>
+
+           <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        </div>
+
+        <div class="setting-box">
+           <h3>💰 Currency</h3>
+
+          <label for="currency">Choose currency:</label>
+
+          <select id="currency" onchange="saveCurrency()">
+               <option value="₹">Indian Rupee (₹)</option>
+               <option value="$">US Dollar ($)</option>
+               <option value="€">Euro (€)</option>
+               <option value="£">British Pound (£)</option>
+          </select>
+       </div>
+       <div class="setting-box">
+         <h3>👤 User Name</h3>
+         <p>Enter your name for the Home page.</p>
+
+         <input type="text" id="userName" placeholder="Enter your name">
+         <button onclick="saveName()">Save Name</button>
+      </div>
+
+        <div class="setting-box">
+            <h3>🗑️ Data</h3>
+            <p>Manage your expense data.</p>
+
+            <button onclick="clearExpenses()">Clear All Expenses</button>
+        </div>
+
+        <div class="setting-box">
+           <h3>ℹ️ About</h3>
+
+           <p><strong>Expense Tracker</strong></p>
+
+           <p>
+             A simple expense management and data visualization website
+             built using Python, Flask, JSON, Pandas and Matplotlib.
+           </p>
+
+           <p>Version: 1.0</p>
+        </div>
+
+        <a href="/" class="back-button">← Back to Home</a>
+
+    </div>
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("darkMode", "enabled");
+        } else {
+            localStorage.setItem("darkMode", "disabled");
+        }
+    }
+
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+
+    function clearExpenses() {
+        let confirmDelete = confirm("Are you sure you want to delete all expenses?");
+
+        if (confirmDelete) {
+            window.location.href = "/clear-expenses";
+        }
+    }
+    function saveCurrency() {
+    let currency = document.getElementById("currency").value;
+    localStorage.setItem("currency", currency);
+}
+if (localStorage.getItem("currency")) {
+    document.getElementById("currency").value = localStorage.getItem("currency");
+}
+function saveName() {
+    let name = document.getElementById("userName").value;
+
+    if (name.trim() !== "") {
+        localStorage.setItem("userName", name);
+        alert("Name saved!");
+    }
+}
+
+if (localStorage.getItem("userName")) {
+    document.getElementById("userName").value = localStorage.getItem("userName");
+}
+</script>
+</body>
+</html>
